@@ -72,6 +72,12 @@ export default {
         });
       }
     }
+  },
+  onShow () {
+    const userinfo =  wx.getStorageSync('userinfo');
+    if (userinfo) {
+      this.userinfo = userinfo;
+    }
   }
 };
 </script>
