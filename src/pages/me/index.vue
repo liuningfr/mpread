@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    async addBook () {
+    async addBook (isbn) {
       const res = await post('/weapp/addbook', {
         isbn,
         openid: this.userinfo.openId
