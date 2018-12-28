@@ -1,4 +1,3 @@
-// https://api.douban.com/v2/book/isbn/9787536692930
 const https = require('https')
 
 module.exports = async (ctx, next) => {
@@ -17,7 +16,7 @@ function getJSON (url) {
             res.on('data', data => {
                 urlData += data
             })
-            res.on('end ', data => {
+            res.on('end', data => {
                 const bookinfo = JSON.parse(urlData)
                 if (bookinfo.title) {
                     resolve(bookinfo)
