@@ -2,12 +2,19 @@
 import config from './config';
 
 export function get(url) {
+  return request(url, 'GET');
+};
+
+export function post(url, data) {
+  return request(url, 'POST', data);
+};
+
+function request(url, method, data) {
   return new Promise((resolve, reject) => {
     wx.request({
       url: config.host + url,
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      data,
+      method,
       success: function(res){
         if (res.data.code === 0) {
           resolve(res.data.data);
@@ -23,8 +30,7 @@ export function get(url) {
       }
     })
   });
-};
-
+}
 export function showSuccess(text) {
   wx.showToast({
     title: text,

@@ -1,6 +1,6 @@
 <script>
 import config from './config';
-import { get } from './utils';
+import { get } from './util';
 
 export default {
   async created () {
