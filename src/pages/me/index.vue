@@ -13,7 +13,7 @@
 <script>
 import qcloud from 'wafer2-client-sdk';
 import config from '@/config';
-import { showSuccess, post } from '@/util';
+import { showSuccess, post, showModal } from '@/util';
 import YearProgress from '@/components/YearProgress';
 
 export default {
@@ -34,15 +34,12 @@ export default {
         isbn,
         openid: this.userinfo.openId
       });
-      if (res.code === 0 && res.data.title) {
-        showSuccess('添加成功');
-      }
+      showModal('添加成功', `${res.title}添加成功`);
     },
     scanBook () {
       wx.scanCode({
         success: (res) => {
           if (res.result) {
-            console.log(res.result);
             this.addBook(res.result);
           }
         }
