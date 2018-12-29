@@ -4,6 +4,16 @@ const { mysql } = require('../qcloud')
 module.exports = async (ctx, next) => {
     const { isbn, openid } = ctx.request.body
     if (isbn && openid) {
+        const findRes = await mysql('books').select().where('isbn', isbn)
+        if (findRes.length) {
+            ctx.state = {
+                code: -1,
+                data: {
+                    msg: '图书已存在'
+                }
+            }
+            return
+        }
         const url = `https://api.douban.com/v2/book/isbn/${isbn}`
         const bookinfo = await getJSON(url)
         const { title, image, alt, publisher, summary, price, rating: { average: rate } } = bookinfo
@@ -24,7 +34,6 @@ module.exports = async (ctx, next) => {
                 }
             }
         }
-        console.log(book.publisher)
     }
 }
 
