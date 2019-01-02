@@ -5,27 +5,27 @@
     </div>
     <div class="detail">
       <div class="row">
-        <div class="left">
-          {{book.title}}
-        </div>
         <div class="right">
           {{book.rate}}
         </div>
+         <div class="left">
+          {{book.title}}
+        </div>
       </div>
       <div class="row">
-        <div class="left">
-          {{book.author}}
-        </div>
         <div class="right">
           浏览量
         </div>
+        <div class="left">
+          {{book.author}}
+        </div>
       </div>
       <div class="row">
-        <div class="left">
-          {{book.publisher}}
-        </div>
         <div class="right">
           添加人
+        </div>
+        <div class="left">
+          {{book.publisher}}
         </div>
       </div>
     </div>

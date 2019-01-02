@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>图书列表</p>
     <Card v-for="book in books" :key="book.id" :book="book" />
   </div> 
 </template>
