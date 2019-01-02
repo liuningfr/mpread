@@ -19,11 +19,17 @@ export default {
   },
   methods: {
     async getList() {
+      wx.showNavigationBarLoading();
       const books = await get('/weapp/booklist');
       this.books = books.list;
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
     }
   },
   mounted() {
+    this.getList();
+  },
+  onPullDownRefresh() {
     this.getList();
   }
 };
