@@ -30,7 +30,7 @@ export default {
       const start = new Date();
       start.setMonth(0);
       start.setDate(1);
-      return (new Date().getTime() - start.getTime()) / 1000 / 60 / 60 / 24 + 1;
+      return ((new Date().getTime() - start.getTime()) / 1000 / 60 / 60 / 24 + 1).toFixed();
     },
     percent() {
       return ((this.day / this.getDayOfYear()) * 100).toFixed(1);
