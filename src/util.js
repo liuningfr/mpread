@@ -1,8 +1,8 @@
 // 工具函数库
 import config from './config';
 
-export function get(url) {
-  return request(url, 'GET');
+export function get(url, data) {
+  return request(url, 'GET', data);
 };
 
 export function post(url, data) {

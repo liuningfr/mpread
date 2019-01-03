@@ -1,6 +1,9 @@
 <template>
   <div>
     <Card v-for="book in books" :key="book.id" :book="book" />
+    <p class="text-footer" v-if="end">
+      没有更多数据
+    </p>
   </div> 
 </template>
 
@@ -14,22 +17,42 @@ export default {
   },
   data() {
     return {
-      books: []
+      books: [],
+      page: 0,
+      end: false
     };
   },
   methods: {
-    async getList() {
+    async getList(init) {
+      if (init) {
+        this.page = 0;
+        this.end = false;
+      }
       wx.showNavigationBarLoading();
-      const books = await get('/weapp/booklist');
-      this.books = books.list;
-      wx.stopPullDownRefresh();
+      const books = await get('/weapp/booklist', { page: this.page });
+      if (books.list.length < 10 && this.page > 0) {
+        this.end = true;
+      }
+      if (init) {
+        this.books = books.list;
+        wx.stopPullDownRefresh();
+      } else {
+        this.books = [...this.books, ...books.list];
+      }
       wx.hideNavigationBarLoading();
     }
-  },
+  }, 
   mounted() {
-    this.getList();
+    this.getList(true);
   },
   onPullDownRefresh() {
+    this.getList(true);
+  },
+  onReachBottom() {
+    if (this.end) {
+      return;
+    }
+    this.page = this.page + 1;
     this.getList();
   }
 };
