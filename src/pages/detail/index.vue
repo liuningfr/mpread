@@ -25,6 +25,16 @@ export default {
       });
     }
   },
+  onShareAppMessage(res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '快来跟我一起读书',
+      path: `/page/detail/main?id=${this.id}`
+    }
+  },
   mounted() {
     this.id = this.$root.$mp.query.id;
     this.getDetail();
