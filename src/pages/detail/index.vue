@@ -1,5 +1,15 @@
 <template>
-  <BookInfo :info="info" />
+  <div>
+    <BookInfo :info="info" />
+    <div class="comment">
+      <textarea
+        v-model="comment"
+        class="textarea"
+        maxlength="100"
+        placeholder="请输入您的评论"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +52,14 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+.comment {
+  margin-top: 10px;
+  .textarea {
+    background: #eee;
+    padding: 10rpx;
+    width: 730rpx;
+    height: 200rpx;
+  }
+}
 </style>
