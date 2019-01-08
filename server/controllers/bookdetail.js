@@ -16,6 +16,8 @@ module.exports = async (ctx, next) => {
         user_info: {
             nickName: userInfo.nickName,
             avatarUrl: userInfo.avatarUrl
-        }
+        },
+        tags: detail.tags.split(','),
+        summary: detail.summary.split('\n')
     }
 }
