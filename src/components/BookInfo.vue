@@ -12,17 +12,45 @@
       </div>
     </div>
   </div>
+  <div class="detail">
+    <img class="avatar" :src="user_info.avatarUrl" mode="aspectFit" />
+    {{user_info.nickName}}
+    <div class="right text-primary">
+      {{info.rate}}分
+      <Rate :value="info.rate" />
+    </div>
+  </div>
+  <div class="detail">
+    {{info.publisher}}
+    <div class="right">
+      {{info.price}}
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
+import Rate from '@/components/Rate';
+
 export default {
-  props: ['info']
+  components: {
+    Rate
+  },
+  props: ['info'],
+  computed: {
+    user_info() {
+      return this.info.user_info || {};
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .bookinfo {
+  font-size: 14px;
+  .right {
+    float: right;
+  }
   .thumb {
     width: 750rpx;
     height: 500rpx;
@@ -52,6 +80,15 @@ export default {
       .author {
         font-size: 14px;
       }
+    }
+  }
+  .detail {
+    padding: 5px 10px;
+    .avatar {
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      vertical-align: middle;
     }
   }
 }
