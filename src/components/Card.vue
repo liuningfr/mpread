@@ -1,7 +1,7 @@
 <template>
   <a :href="detailUrl">
     <div class="book-card">
-      <div class="thumb">
+      <div class="thumb" @click.stop="preview">
         <img :src="book.image" class="image" mode="aspectFit"/>
       </div>
       <div class="detail">
@@ -46,6 +46,15 @@ export default {
     computed: {
       detailUrl() {
         return `/pages/detail/main?id=${this.book.id}`;
+      }
+    },
+    methods: {
+      preview() {
+        console.log(this.book.image)
+        wx.previewImage({
+          // current: 'String', // 当前显示图片的链接，不填则默认为 urls 的第一张
+          urls: [this.book.image],
+        })
       }
     }
 };
