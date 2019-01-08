@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TopSwiper :tops="tops" />
     <Card v-for="book in books" :key="book.id" :book="book" />
     <p class="text-footer" v-if="end">
       没有更多数据
@@ -10,16 +11,19 @@
 <script>
 import { get } from '@/util';
 import Card from '@/components/Card';
+import TopSwiper from '@/components/TopSwiper';
 
 export default {
   components: {
-    Card
+    Card,
+    TopSwiper
   },
   data() {
     return {
       books: [],
       page: 0,
-      end: false
+      end: false,
+      tops: []
     };
   },
   methods: {
@@ -40,13 +44,19 @@ export default {
         this.books = [...this.books, ...books.list];
       }
       wx.hideNavigationBarLoading();
+    },
+    async getTop() {
+      const tops =  await get('/weapp/top');
+      this.tops = tops.list;
     }
   }, 
   mounted() {
     this.getList(true);
+    this.getTop();
   },
   onPullDownRefresh() {
     this.getList(true);
+    this.getTop();
   },
   onReachBottom() {
     if (this.end) {
