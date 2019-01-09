@@ -9,6 +9,16 @@
         placeholder="请输入您的评论"
       />
     </div>
+    <div class="location">
+      地理位置
+      <switch color="#EA5A49" @change="getLocation" />
+      <span class="text-primary">{{location}}</span>
+    </div>
+    <div class="phone">
+      手机型号
+      <switch color="#EA5A49" @change="getPhone" />
+      <span class="text-primary">{{phone}}</span>
+    </div>
   </div>
 </template>
 
@@ -23,7 +33,9 @@ export default {
   data () {
     return {
       id: '',
-      info: {}
+      info: {},
+      location: '',
+      phone: ''
     }
   },
   methods: {
