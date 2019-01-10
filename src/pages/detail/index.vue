@@ -19,11 +19,14 @@
       <switch color="#EA5A49" @change="getPhone" />
       <span class="text-primary">{{phone}}</span>
     </div>
+    <button class="btn" @click="addComment">
+      评论
+    </button>
   </div>
 </template>
 
 <script>
-import { get } from '@/util';
+import { get, post } from '@/util';
 import BookInfo from '@/components/BookInfo';
 
 export default {
@@ -35,7 +38,9 @@ export default {
       id: '',
       info: {},
       location: '',
-      phone: ''
+      phone: '',
+      comment: '',
+      userinfo: {}
     }
   },
   methods: {
@@ -66,7 +71,7 @@ export default {
                 if (res.data.status === 0) {
                   _this.location = res.data.result.addressComponent.city;
                 } else {
-                  _this.location = '未知地点';
+                  _this.location = '未知地点'; 
                 }
               },
             })
@@ -83,12 +88,26 @@ export default {
       } else {
         this.phone = '';
       }
+    },
+    async addComment() {
+      if (this.comment.length === 0) {
+        return;
+      }
+      const data = {
+        comment: this.comment,
+        phone: this.phone,
+        location: this.location,
+        openid: this.userinfo.openId,
+        bookid: this.id,
+      };
+      await post('/weapp/addcomment', data);
+      this.comment = '';
     }
   },
   onShareAppMessage(res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      console.log(res.target)
+      
     }
     return {
       title: '快来跟我一起读书',
@@ -98,6 +117,10 @@ export default {
   mounted() {
     this.id = this.$root.$mp.query.id;
     this.getDetail();
+    const userinfo = wx.getStorageSync('userinfo');
+    if (userinfo) {
+      this.userinfo = userinfo;
+    }
   },
 };
 </script>
