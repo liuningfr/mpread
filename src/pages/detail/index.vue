@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { get, post } from '@/util';
+import { get, post, showModal } from '@/util';
 import BookInfo from '@/components/BookInfo';
 
 export default {
@@ -40,7 +40,8 @@ export default {
       location: '',
       phone: '',
       comment: '',
-      userinfo: {}
+      userinfo: {},
+      comments: [],
     }
   },
   methods: {
@@ -100,8 +101,16 @@ export default {
         openid: this.userinfo.openId,
         bookid: this.id,
       };
-      await post('/weapp/addcomment', data);
+      try {
+        await post('/weapp/addcomment', data);
+      } catch(e) {
+        showModal('评论失败', e.msg);
+      }
       this.comment = '';
+    },
+    async getComments() {
+      const comments = await get('/weapp/getcomments', { bookid: this.id });
+      this.comments = comments;
     }
   },
   onShareAppMessage(res) {
@@ -117,6 +126,7 @@ export default {
   mounted() {
     this.id = this.$root.$mp.query.id;
     this.getDetail();
+    this.getComments();
     const userinfo = wx.getStorageSync('userinfo');
     if (userinfo) {
       this.userinfo = userinfo;
