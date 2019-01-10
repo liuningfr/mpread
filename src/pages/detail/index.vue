@@ -45,6 +45,44 @@ export default {
       wx.setNavigationBarTitle({
         title: info.title
       });
+    },
+    getLocation(e) {
+      const ak = 't8xiL6WjQ5pvp7e5NSHfgcnfPyuaCKbD';
+      const url = 'http://api.map.baidu.com/geocoder/v2/';
+      const _this = this;
+      if (e.target.value) {
+        wx.getLocation({
+          type: 'wgs84',
+          success(res) {
+            wx.request({
+              url,
+              data: {
+                location: `${res.latitude},${res.longitude}`,
+                output: 'json',
+                ak,
+              },
+              method: 'GET',
+              success: function(res){
+                if (res.data.status === 0) {
+                  _this.location = res.data.result.addressComponent.city;
+                } else {
+                  _this.location = '未知地点';
+                }
+              },
+            })
+          }
+        });
+      } else {
+        this.location = '';
+      }
+    },
+    getPhone(e) {
+      if (e.target.value) {
+        const phoneInfo = wx.getSystemInfoSync();
+        this.phone = phoneInfo.model;
+      } else {
+        this.phone = '';
+      }
     }
   },
   onShareAppMessage(res) {
@@ -73,5 +111,11 @@ export default {
     width: 730rpx;
     height: 200rpx;
   }
+}
+.location {
+  margin-top: 10px;
+}
+.phone {
+  margin-top: 10px;
 }
 </style>
