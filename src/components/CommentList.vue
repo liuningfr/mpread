@@ -1,6 +1,6 @@
 <template>
   <div class="comment-list">
-    <div class="page-title">我的评论</div>
+    <div class="page-title" v-if="comments.length">评论</div>
     <div class="comment" :key="comment.id" v-for="comment in comments">
       <div class="user">
         <div class="inline">
@@ -33,6 +33,7 @@ export default {
   .comment {
     background: #fff;
     margin-bottom: 10px;
+    margin-top: 0;
     padding: 5px 20px;
     .content {
       margin: 10px 0;

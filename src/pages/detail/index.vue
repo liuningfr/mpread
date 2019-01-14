@@ -2,6 +2,7 @@
   <div>
     <BookInfo :info="info" />
     <CommentList :comments="comments" />
+    <div v-if="showAdd">
     <div class="comment">
       <textarea
         v-model="comment"
@@ -23,6 +24,11 @@
     <button class="btn" @click="addComment">
       评论
     </button>
+    </div>
+    <div v-else class="text-footer">
+      未登陆或您已经评论过
+    </div>
+    <button open-type="share" class="btn">转发给好友</button>
   </div>
 </template>
 
@@ -45,6 +51,17 @@ export default {
       comment: '',
       userinfo: {},
       comments: [],
+    }
+  },
+  computed: {
+    showAdd() {
+      if (!this.userinfo.openId) {
+        return false;
+      }
+      if (this.comments.filter(item => item.openid === this.userinfo.openId).length > 0) {
+        return false;
+      }
+      return true;
     }
   },
   methods: {
@@ -110,6 +127,7 @@ export default {
         showModal('评论失败', e.msg);
       }
       this.comment = '';
+      this.getComments();
     },
     async getComments() {
       const comments = await get('/weapp/getcomments', { bookid: this.id });
@@ -119,7 +137,6 @@ export default {
   onShareAppMessage(res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
-      
     }
     return {
       title: '快来跟我一起读书',
@@ -127,6 +144,8 @@ export default {
     }
   },
   mounted() {
+    this.location = '';
+    this.phone = '';
     this.id = this.$root.$mp.query.id;
     this.getDetail();
     this.getComments();
