@@ -1,11 +1,17 @@
 const { mysql } = require('../qcloud')
 
 module.exports = async (ctx, next) => {
-    const { bookid } = ctx.request.query
-    const comments = await mysql('comments')
+    const { bookid, openid } = ctx.request.query
+    const mysqlSelect = mysql('comments')
                             .select('comments.*', 'cSessionInfo.user_info')
                             .join('cSessionInfo', 'comments.openid', 'cSessionInfo.open_id')
-                            .where('bookid', bookid)
+    let comments = []
+    if (bookid) {
+        comments = await mysqlSelect.where('bookid', bookid)
+    }
+    if (openid) {
+        comments = await mysqlSelect.where('openid', openid)
+    }
     if (comments) {
         ctx.state.data = {
             list: comments.map(item => {

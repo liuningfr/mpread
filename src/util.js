@@ -19,7 +19,7 @@ function request(url, method, data) {
         if (res.data.code === 0) {
           resolve(res.data.data);
         } else {
-          showModal('失败', res.data.data.msg)
+          showModal('失败', res.data.error)
           reject(res.data);
         }
       },
