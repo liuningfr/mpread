@@ -27,16 +27,7 @@ export default {
     handleClick(item) {
       if (this.type === 'user') {
         wx.navigateTo({
-          url: `/pages/detail/main?id=${item.bookid}`,
-          success: function(res){
-            // success
-          },
-          fail: function() {
-            // fail
-          },
-          complete: function() {
-            // complete
-          }
+          url: `/pages/detail/main?id=${item.bookid}`
         })
       }
     }
