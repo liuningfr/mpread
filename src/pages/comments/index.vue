@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <CommentList :comments="comments" />
+    <CommentList type="user" :comments="comments" />
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
     init() {
       wx.showNavigationBarLoading();
       this.getComments();
+      wx.hideNavigationBarLoading();
     }
   },
   onShow() {
