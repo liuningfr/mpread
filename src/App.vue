@@ -1,12 +1,7 @@
 <script>
 import config from './config';
-import { get } from './util';
 
-export default {
-  async created () {
-    const res = await get('/weapp/demo');
-  }
-}
+export default {};
 </script>
 
 <style>
