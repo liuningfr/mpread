@@ -1,14 +1,14 @@
 const CONF = {
 
-    serverHost: 'localhost',
-    tunnelServerUrl: '',
-    tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
-      // 腾讯云相关配置可以查看云 API 密钥控制台：https://console.cloud.tencent.com/capi
-    qcloudAppId: '1258371657',
-    qcloudSecretId: 'AKIDlkxInTFwmM99nYDQYnAgL712JZslnxDY',
-    qcloudSecretKey: 'vz9RrO3qknECRmCiMPatYH87DZ2ZEAER',
-    wxMessageToken: 'weixinmsgtoken',
-    networkTimeout: 30000,
+    // serverHost: 'localhost',
+    // tunnelServerUrl: '',
+    // tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
+    //   // 腾讯云相关配置可以查看云 API 密钥控制台：https://console.cloud.tencent.com/capi
+    // qcloudAppId: '1258371657',
+    // qcloudSecretId: 'AKIDlkxInTFwmM99nYDQYnAgL712JZslnxDY',
+    // qcloudSecretKey: 'vz9RrO3qknECRmCiMPatYH87DZ2ZEAER',
+    // wxMessageToken: 'weixinmsgtoken',
+    // networkTimeout: 30000,
 
     port: '5757',
     rootPathname: '',
@@ -32,7 +32,7 @@ const CONF = {
         port: 3306,
         user: 'root',
         db: 'read',
-        pass: 'avril1993',
+        pass: 'wx1abff057d5bead97',
         char: 'utf8mb4'
     },
 
